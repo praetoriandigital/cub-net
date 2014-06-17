@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cub", "Cub\Cub.csproj", "{02308046-A1E2-419B-A1D8-573CC073641C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cub.Tests", "Cub.Tests\Cub.Tests.csproj", "{79D830F5-4FB7-43AF-A29B-AAB7D8089CF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02308046-A1E2-419B-A1D8-573CC073641C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02308046-A1E2-419B-A1D8-573CC073641C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02308046-A1E2-419B-A1D8-573CC073641C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02308046-A1E2-419B-A1D8-573CC073641C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79D830F5-4FB7-43AF-A29B-AAB7D8089CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79D830F5-4FB7-43AF-A29B-AAB7D8089CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79D830F5-4FB7-43AF-A29B-AAB7D8089CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79D830F5-4FB7-43AF-A29B-AAB7D8089CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
