@@ -76,7 +76,7 @@ namespace Cub
                 username = username,
                 password = password,
             });
-            var user = BasePost<User>("login", postData);
+            var user = BasePost<User>("user/login", postData);
             user.Token = user._string("token");
             return user;
         }
