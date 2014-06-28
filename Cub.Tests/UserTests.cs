@@ -7,12 +7,13 @@ namespace Cub.Tests
         [Test]
         public void UserLoginAndGetByToken()
         {
-            var user = User.Login("den", "den");
+            var user = User.Login("den", "denden");
             Assert.AreEqual("slow", user.FirstName);
             Assert.AreEqual("poke", user.LastName);
             Assert.NotNull(user.P1MemberId);
             Assert.NotNull(user.Token);
             Assert.True(user.Token.StartsWith("t_"));
+            Assert.False(user.EmailConfirmed);
 
             var user2 = User.Get(user.Token);
             Assert.AreEqual(user.FirstName, user2.FirstName);

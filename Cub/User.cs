@@ -11,6 +11,7 @@ namespace Cub
         public User(User obj)
             : base(obj)
         {
+            Properties["email_confirmed"] = false;
         }
 
         public override string InstanceUrl
@@ -36,6 +37,12 @@ namespace Cub
         {
             get { return _string("email"); }
             set { Properties["email"] = value; }
+        }
+
+        public bool EmailConfirmed
+        {
+            get { return _value<bool>("email_confirmed"); }
+            set { Properties["email_confirmed"] = value; }
         }
 
         public string Username
