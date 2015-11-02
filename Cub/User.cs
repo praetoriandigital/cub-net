@@ -57,21 +57,6 @@ namespace Cub
             set { ApiKey = value; }
         }
 
-        public int? P1MemberId
-        {
-            get { return _nullableValue<int>("p1_member_id"); }
-        }
-
-        public int? FR1MemberId
-        {
-            get { return _nullableValue<int>("fr1_member_id"); }
-        }
-
-        public int? M1MemberId
-        {
-            get { return _nullableValue<int>("m1_member_id"); }
-        }
-
         #endregion
 
         #region Methods
