@@ -17,6 +17,8 @@ namespace Cub.Tests
             Assert.Greater(messages.Count, 0);
             var message = messages[0];
             Assert.GreaterOrEqual(message.TotalOpens, 0);
+            Assert.GreaterOrEqual(message.Delivered, 0);
+            Assert.GreaterOrEqual(message.Delivered, message.TotalOpens);
             Assert.NotNull(message.Subject);
             Assert.LessOrEqual(message.Created, DateTime.UtcNow);
             Assert.AreEqual(message.FCDB, "p1");
@@ -27,6 +29,7 @@ namespace Cub.Tests
             Assert.AreEqual(message.FCDB, message2.FCDB);
             Assert.AreEqual(message.FCNewsletterID, message2.FCNewsletterID);
             Assert.AreEqual(message.TotalOpens, message2.TotalOpens);
+            Assert.AreEqual(message.Delivered, message2.Delivered);
             Assert.AreEqual(message.Created, message2.Created);
         }
     }
