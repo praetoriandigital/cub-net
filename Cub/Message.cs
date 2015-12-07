@@ -18,14 +18,24 @@ namespace Cub
             set { Properties["subject"] = value; }
         }
 
+        public int TotalBounces
+        {
+            get { return _value<int>("total_bounces"); }
+        }
+
+        public int TotalDelivered
+        {
+            get { return _value<int>("total_delivered"); }
+        }
+
         public int TotalOpens
         {
             get { return _value<int>("total_opens"); }
         }
 
-        public int Delivered
+        public int UniqueOpens
         {
-            get { return _value<int>("delivered"); }
+            get { return _value<int>("unique_opens"); }
         }
 
         public string FCDB
