@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace Cub
 {
     public class User : CObject
     {
-        public User() { }
+        public User()
+        {
+        }
 
         public User(User obj)
             : base(obj)
         {
             Properties["email_confirmed"] = false;
-        }
-
-        public override string InstanceUrl
-        {
-            get { return "user"; }
         }
 
         #region Read/Write properties
