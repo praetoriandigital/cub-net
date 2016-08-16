@@ -2,16 +2,15 @@
 
 namespace Cub.Tests
 {
-    class AccountTests
+    public class UserTests
     {
         [Test]
         public void UserLoginAndGetByToken()
         {
-            var user = User.Login("support@ivelum.com", "SJW8Gg");
+            var user = Login();
             Assert.AreEqual("do not remove of modify", user.FirstName);
             Assert.AreEqual("user for tests", user.LastName);
             Assert.NotNull(user.Token);
-            Assert.True(user.Token.StartsWith("tok_"));
             Assert.False(user.EmailConfirmed);
 
             var user2 = User.Get(user.Token);
@@ -20,6 +19,21 @@ namespace Cub.Tests
             Assert.AreEqual(user.Email, user2.Email);
             Assert.AreEqual(user.Username, user2.Username);
             Assert.AreEqual(user.Token, user2.Token);
+        }
+
+        [Test]
+        public void UserReloadWithAppTokenSuccess()
+        {
+            var user = Login();
+            user.Token = string.Empty;
+
+            user.Reload();
+        }
+
+        private static User Login()
+        {
+            var user = User.Login("support@ivelum.com", "SJW8Gg");
+            return user;
         }
     }
 }

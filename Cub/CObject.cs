@@ -78,8 +78,13 @@ namespace Cub
 
         protected CObject BaseReload()
         {
+            return BaseReload(InstanceUrl);
+        }
+
+        protected CObject BaseReload(string url)
+        {
             PopulateApiKey();
-            return FromObject(Api.RequestObject("GET", InstanceUrl, ApiKey));
+            return FromObject(Api.RequestObject("GET", url, ApiKey));
         }
 
         protected static T BaseGet<T>(string id, string apiKey) where T : CObject, new()

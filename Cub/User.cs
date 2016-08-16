@@ -14,6 +14,14 @@ namespace Cub
             Properties["email_confirmed"] = false;
         }
 
+        public override string InstanceUrl
+        {
+            get
+            {
+                return "user";
+            }
+        }
+
         #region Read/Write properties
 
         public string FirstName
@@ -75,7 +83,7 @@ namespace Cub
 
         public User Reload()
         {
-            BaseReload();
+            BaseReload(string.IsNullOrEmpty(Token) ? base.InstanceUrl : InstanceUrl);
             return this;
         }
 
