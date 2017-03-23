@@ -38,6 +38,11 @@ namespace Cub
             get { return _value<int>("unique_opens"); }
         }
 
+        public int ValidSubscribers
+        {
+            get { return _value<int>("valid_subscribers"); }
+        }
+
         public string FCDB
         {
             get { return _string("fc_db"); }
