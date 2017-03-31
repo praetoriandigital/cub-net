@@ -21,6 +21,7 @@ namespace Cub.Tests
             Assert.GreaterOrEqual(message.TotalOpens, 0);
             Assert.GreaterOrEqual(message.UniqueOpens, 0);
             Assert.GreaterOrEqual(message.ValidSubscribers, 0);
+            Assert.GreaterOrEqual(message.ReportedDeliveries, 0);
 
             Assert.GreaterOrEqual(message.TotalDelivered, message.TotalOpens);
             Assert.GreaterOrEqual(message.TotalOpens, message.UniqueOpens);
@@ -41,6 +42,7 @@ namespace Cub.Tests
             Assert.AreEqual(message.TotalOpens, message2.TotalOpens);
             Assert.AreEqual(message.UniqueOpens, message2.UniqueOpens);
             Assert.AreEqual(message.ValidSubscribers, message2.ValidSubscribers);
+            Assert.AreEqual(message.ReportedDeliveries, message2.ReportedDeliveries);
 
             Assert.AreEqual(message.Created, message2.Created);
         }
