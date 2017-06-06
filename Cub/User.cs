@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+
+using Newtonsoft.Json.Linq;
 
 namespace Cub
 {
@@ -21,6 +24,28 @@ namespace Cub
                 return "user";
             }
         }
+
+        public DateTime? BirthDate => _nullableValue<DateTime>("birth_date");
+
+        public DateTime? DateJoined => _nullableValue<DateTime>("date_joined");
+
+        public string RegistrationSite => _string("registration_site");
+
+        public string PhotoLarge => _string("photo_large");
+
+        public string PhotoSmall => _string("photo_small");
+
+        public bool? PurchasingRoleBuyForOrganization => _nullableValue<bool>("purchasing_role_buy_for_organization");
+
+        public bool? PurchasingRoleBuyForSelfOnly => _nullableValue<bool>("purchasing_role_buy_for_self_only");
+
+        public bool? PurchasingRoleRecommend => _nullableValue<bool>("purchasing_role_recommend");
+
+        public bool? PurchasingRoleSpecifyForOrganization => _nullableValue<bool>("purchasing_role_specify_for_organization");
+
+        public ICollection<string> Membership => _list<string>("membership");
+
+        public ICollection<string> VerifiedTags => _list<string>("verified_tags");
 
         #region Read/Write properties
 
@@ -52,6 +77,18 @@ namespace Cub
         {
             get { return _string("username"); }
             set { Properties["username"] = value; }
+        }
+
+        public string MiddleName
+        {
+            get => _string("middle_name");
+            set => Properties["middle_name"] = value;
+        }
+
+        public string Gender
+        {
+            get => _string("gender");
+            set => Properties["gender"] = value;
         }
 
         public string Token
