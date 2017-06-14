@@ -35,6 +35,8 @@ namespace Cub
 
         public string PhotoSmall => _string("photo_small");
 
+        public bool? Deleted => _nullableValue<bool>("deleted");
+
         public bool? PurchasingRoleBuyForOrganization => _nullableValue<bool>("purchasing_role_buy_for_organization");
 
         public bool? PurchasingRoleBuyForSelfOnly => _nullableValue<bool>("purchasing_role_buy_for_self_only");
