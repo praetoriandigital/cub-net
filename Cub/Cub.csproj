@@ -54,6 +54,7 @@
     <Compile Include="ForbiddenException.cs" />
     <Compile Include="InternalServerErrorException.cs" />
     <Compile Include="JsonConvert.cs" />
+    <Compile Include="MailingList.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MethodNotAllowedException.cs" />
     <Compile Include="NotFoundException.cs" />

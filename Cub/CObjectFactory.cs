@@ -21,6 +21,10 @@ namespace Cub
                     var subscription = new Subscription();
                     subscription.FromObject(obj);
                     return subscription;
+                case "mailinglist":
+                    var mailingList = new MailingList();
+                    mailingList.FromObject(obj);
+                    return mailingList;
             }
 
             return null;

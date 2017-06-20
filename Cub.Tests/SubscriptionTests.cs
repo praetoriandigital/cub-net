@@ -13,12 +13,10 @@ namespace Cub.Tests
               ""object"": ""subscription"",
               ""id"": ""sub_LZmtXuQcuWeHDHFm"",
               ""mailinglist"": ""mlt_u8f14e45fceea167"",
-              ""user"": ""usr_w250IuJqQcLsOy8y"",
-              ""invitation"": null
+              ""user"": ""usr_w250IuJqQcLsOy8y""
             }";
 
             var subscription = CObjectFactory.FromJObject(JObject.Parse(json)) as Subscription;
-
 
             Assert.NotNull(subscription);
             Assert.IsNotNullOrEmpty(subscription.MailingList);
