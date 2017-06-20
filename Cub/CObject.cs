@@ -64,6 +64,8 @@ namespace Cub
             get { return String.Format("{0}/{1}", ClassUrl(this), Id); }
         }
 
+        public bool? Deleted => _nullableValue<bool>("deleted");
+
         protected void PopulateApiKey()
         {
             if (string.IsNullOrEmpty(ApiKey))

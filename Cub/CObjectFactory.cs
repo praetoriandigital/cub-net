@@ -17,7 +17,12 @@ namespace Cub
                     var user = new User();
                     user.FromObject(obj);
                     return user;
+                case "subscription":
+                    var subscription = new Subscription();
+                    subscription.FromObject(obj);
+                    return subscription;
             }
+
             return null;
         }
     }
