@@ -37,6 +37,8 @@ namespace Cub
 
         public bool? Deleted => _nullableValue<bool>("deleted");
 
+        public bool? InvalidEmail => _nullableValue<bool>("invalid_email");
+
         public bool? PurchasingRoleBuyForOrganization => _nullableValue<bool>("purchasing_role_buy_for_organization");
 
         public bool? PurchasingRoleBuyForSelfOnly => _nullableValue<bool>("purchasing_role_buy_for_self_only");
