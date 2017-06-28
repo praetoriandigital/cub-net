@@ -25,6 +25,10 @@ namespace Cub
                     var mailingList = new MailingList();
                     mailingList.FromObject(obj);
                     return mailingList;
+                case "lead":
+                    var lead = new Lead();
+                    lead.FromObject(obj);
+                    return lead;
             }
 
             return null;

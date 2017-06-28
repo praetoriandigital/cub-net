@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 
+using Newtonsoft.Json;
+
 namespace Cub
 {
     public class CObject
@@ -147,6 +149,17 @@ namespace Cub
         protected string _string(string propName)
         {
             return Properties[propName] == null ? (string)null : Properties[propName].Value<string>();
+        }
+
+        protected T _refType<T>(string propName) where T : class
+        {
+            var data = Properties[propName]?.ToString();
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<T>(data);
         }
 
         protected T _value<T>(string propName) where T : struct

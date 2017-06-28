@@ -44,6 +44,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeadTests.cs" />
     <Compile Include="MailingListTests.cs" />
     <Compile Include="MessageTest.cs" />
     <Compile Include="SubscriptionTests.cs" />
