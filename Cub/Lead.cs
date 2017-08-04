@@ -30,5 +30,7 @@ namespace Cub
         public string Url => _string("url");
 
         public string User => _string("user");
+
+        public string Form => _string("form");
     }
 }
