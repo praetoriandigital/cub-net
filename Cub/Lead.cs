@@ -13,7 +13,7 @@ namespace Cub
         {
         }
 
-        public DateTime Created => _value<DateTime>("user");
+        public DateTime Created => _value<DateTime>("created");
 
         public LeadData Data => _refType<LeadData>("data");
 

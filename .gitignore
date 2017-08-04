@@ -216,3 +216,5 @@ $RECYCLE.BIN/
 # NuGet packaging
 *.nupkg
 Cub/NuGetPack/lib/Net20/*.dll
+
+.idea/

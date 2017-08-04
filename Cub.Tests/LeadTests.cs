@@ -41,6 +41,7 @@ namespace Cub.Tests
             var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
 
             Assert.NotNull(lead);
+            Assert.IsTrue(lead.Created.Year == 2017);
             Assert.NotNull(lead.Data);
             Assert.IsNotNullOrEmpty(lead.Id);
             Assert.IsNotNullOrEmpty(lead.Data.FirstName);
