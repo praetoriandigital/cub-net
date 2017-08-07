@@ -115,6 +115,9 @@ namespace Cub
         [JsonProperty("zip")]
         public string Zip { get; set; }
 
+        [JsonProperty("workflow")]
+        public string Workflow { get; set; }
+
         [JsonProperty("grant_assistance")]
         internal JToken GrantAssistance { get; set; }
 
