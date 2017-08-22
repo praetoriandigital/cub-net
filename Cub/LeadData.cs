@@ -7,8 +7,11 @@ namespace Cub
 {
     public class LeadData
     {
-        [JsonProperty("category_id")]
-        public decimal CategoryId { get; set; }
+        [JsonProperty("category")]
+        public string Category { get; set; }
+
+        [JsonProperty("campaigns")]
+        public string Campaigns { get; set; }
 
         [JsonProperty("city")]
         public string City { get; set; }
