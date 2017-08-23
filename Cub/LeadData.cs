@@ -133,6 +133,12 @@ namespace Cub
         [JsonProperty("products")]
         internal JToken Products { get; set; }
 
+        [JsonProperty("purchase_for_myself")]
+        public string PurchaseForMyself { get; set; }
+
+        [JsonProperty("charge_in_training")]
+        public string ChargeInTraining { get; set; }
+
         public IEnumerable<string> GetGrantAssistance()
         {
             return GetNormalizedCollection(GrantAssistance);
