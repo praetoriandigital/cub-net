@@ -124,6 +124,9 @@ namespace Cub
         [JsonProperty("workflow")]
         public string Workflow { get; set; }
 
+        [JsonProperty("contact_me")]
+        public string ContactMe { get; set; }
+
         [JsonProperty("grant_assistance")]
         internal JToken GrantAssistance { get; set; }
 
