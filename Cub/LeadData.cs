@@ -142,6 +142,9 @@ namespace Cub
         [JsonProperty("charge_in_training")]
         public string ChargeInTraining { get; set; }
 
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
         public IEnumerable<string> GetGrantAssistance()
         {
             return GetNormalizedCollection(GrantAssistance);
