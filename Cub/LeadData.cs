@@ -10,9 +10,6 @@ namespace Cub
         [JsonProperty("category")]
         public string Category { get; set; }
 
-        [JsonProperty("campaigns")]
-        public string Campaigns { get; set; }
-
         [JsonProperty("city")]
         public string City { get; set; }
 
@@ -127,6 +124,9 @@ namespace Cub
         [JsonProperty("contact_me")]
         public string ContactMe { get; set; }
 
+        [JsonProperty("campaigns")]
+        internal JToken Campaigns { get; set; }
+
         [JsonProperty("grant_assistance")]
         internal JToken GrantAssistance { get; set; }
 
@@ -144,6 +144,11 @@ namespace Cub
 
         [JsonProperty("address")]
         public string Address { get; set; }
+
+        public IEnumerable<string> GetCampaigns()
+        {
+            return GetNormalizedCollection(Campaigns);
+        }
 
         public IEnumerable<string> GetGrantAssistance()
         {
