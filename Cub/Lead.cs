@@ -32,5 +32,7 @@ namespace Cub
         public string User => _string("user");
 
         public string Form => _string("form");
+
+        public bool IsProduction => _value<bool>("production");
     }
 }

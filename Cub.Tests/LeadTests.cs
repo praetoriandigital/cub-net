@@ -35,6 +35,7 @@ namespace Cub.Tests
                       ""url"": ""http://policeone.local/police-products/tactical/ballistic-shields/articles/151262006-QuadCurve-How-ATS-Armor-provides-the-most-comfortable-protection-available/"",
                       ""remote_ip"": ""52.174.51.233"",
                       ""created"": ""2017-06-28T10:31:29Z"",
+                      ""production"": true,
                       ""deleted"": true
                     }";
 
@@ -46,6 +47,7 @@ namespace Cub.Tests
             Assert.IsNotNullOrEmpty(lead.Id);
             Assert.IsNotNullOrEmpty(lead.Data.FirstName);
             Assert.IsTrue(lead.Deleted == true);
+            Assert.IsTrue(lead.IsProduction);
             var products = lead.Data.GetProducts();
             Assert.True(!products.Any());
         }
