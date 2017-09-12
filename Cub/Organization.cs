@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 namespace Cub
 {
     public class Organization : CObject
@@ -13,26 +11,23 @@ namespace Cub
         {
         }
 
+        public static Organization Get(string id)
+        {
+            return BaseGet<Organization>(id, null);
+        }
+
         public string City => _string("city");
 
         public string Employees => _string("employees");
 
         public string Name => _string("name");
 
-        public string CountryName => _refType<Country>("country")?.Name;
+        private string CountryUid => _string("country");
 
-        public string StateName => _refType<State>("state")?.Name;
+        private string StateUid => _string("state");
 
-        internal class Country
-        {
-            [JsonProperty("name")]
-            public string Name { get; set; }
-        }
+        public Country Country => Country.Get(CountryUid);
 
-        internal class State
-        {
-            [JsonProperty("name")]
-            public string Name { get; set; }
-        }
+        public State State => State.Get(StateUid);
     }
 }

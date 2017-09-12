@@ -11,28 +11,20 @@ namespace Cub.Tests
         {
             var json = @"{
               ""city"": ""Abbeville"",
-              ""country"": {
-                ""id"": ""cry_3zxJkF8kKdowkmRp"",
-                ""name"": ""United States"",
-                ""object"": ""country""
-              },
+              ""country"": ""cry_3zxJkF8kKdowkmRp"",
               ""employees"": ""11-50"",
               ""id"": ""org_tBLeinLfH4yG4fJe"",
               ""name"": ""Abbeville Police Department"",
               ""object"": ""organization"",
-              ""state"": {
-                ""id"": ""stt_8mLCuP25Sbs1dHzJ"",
-                ""name"": ""Louisiana"",
-                ""object"": ""state""
-              }
+              ""state"": ""stt_8mLCuP25Sbs1dHzJ""
             }";
 
             var organization = CObjectFactory.FromJObject(JObject.Parse(json)) as Organization;
 
             Assert.NotNull(organization);
             Assert.IsNotNullOrEmpty(organization.Id);
-            Assert.AreEqual(organization.CountryName, "United States");
-            Assert.AreEqual(organization.StateName, "Louisiana");
+            Assert.AreEqual(organization.Country?.Name, "United States");
+            Assert.AreEqual(organization.State?.Name, "Louisiana");
         }
 
         [Test]
@@ -51,7 +43,7 @@ namespace Cub.Tests
             Assert.NotNull(lead);
             Assert.IsNotNullOrEmpty(lead.Id);
 
-            var organization = lead.Data.GetOrganization();
+            var organization = lead.Data.Organization;
 
             Assert.NotNull(organization);
             Assert.AreEqual(organization.Name, "Abbeville Police Department");

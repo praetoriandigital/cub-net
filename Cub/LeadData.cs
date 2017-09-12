@@ -68,7 +68,7 @@ namespace Cub
         public string MemberPosition { get; set; }
 
         [JsonProperty("organization")]
-        private string Organization { get; set; }
+        private string OrganizationUid { get; set; }
 
         [JsonProperty("organization_address")]
         public string OrganizationAddress { get; set; }
@@ -148,25 +148,7 @@ namespace Cub
         [JsonProperty("address")]
         public string Address { get; set; }
 
-        public Organization GetOrganization()
-        {
-            if (string.IsNullOrEmpty(Organization))
-            {
-                return null;
-            }
-
-            try
-            {
-                var param = new Dictionary<string, object> { { "expand", "state,country" } };
-                var obj = Api.RequestObject("get", $"organizations/{Organization}", param);
-
-                return CObjectFactory.FromJObject(obj) as Organization;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        public Organization Organization => Organization.Get(OrganizationUid);
 
         public IEnumerable<string> GetCampaigns()
         {
