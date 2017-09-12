@@ -6,9 +6,7 @@ namespace Cub
     {
         public static CObject FromJObject(JObject obj)
         {
-            if (obj == null)
-                return null;
-            if (obj["object"] == null || obj["id"] == null)
+            if (obj?["object"] == null || obj["id"] == null)
                 return null;
             var objType = obj["object"].Value<string>();
             switch (objType)
@@ -29,6 +27,10 @@ namespace Cub
                     var lead = new Lead();
                     lead.FromObject(obj);
                     return lead;
+                case "organization":
+                    var organization = new Organization();
+                    organization.FromObject(obj);
+                    return organization;
             }
 
             return null;

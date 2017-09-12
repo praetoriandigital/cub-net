@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LeadTests.cs" />
+    <Compile Include="OrganizationTests.cs" />
     <Compile Include="MailingListTests.cs" />
     <Compile Include="MessageTest.cs" />
     <Compile Include="SubscriptionTests.cs" />

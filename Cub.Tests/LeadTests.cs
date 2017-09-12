@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using Newtonsoft.Json.Linq;
 
@@ -25,7 +24,7 @@ namespace Cub.Tests
                         ""purchase_for_organization"": ""No"",
                         ""purchasing_timeframe"": ""Research only at this time"",
                         ""company"": ""ATS Armor"",
-                        ""notifications"": ""p1:campaign:54264001"",
+                        ""campaign_id"": ""54264001"",
                         ""source"": ""Article Lead Block""
                       },
                       ""field_labels"": {},
