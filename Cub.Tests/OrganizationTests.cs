@@ -47,6 +47,8 @@ namespace Cub.Tests
 
             Assert.NotNull(organization);
             Assert.AreEqual(organization.Name, "Abbeville Police Department");
+            Assert.AreEqual(organization.Address, "304 Charity St");
+            Assert.AreEqual(organization.PostalCode, "70510-5131");
         }
     }
 }

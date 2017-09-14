@@ -29,5 +29,9 @@ namespace Cub
         public Country Country => Country.Get(CountryUid);
 
         public State State => State.Get(StateUid);
+
+        public string Address => _string("address");
+
+        public string PostalCode => _string("postal_code");
     }
 }
