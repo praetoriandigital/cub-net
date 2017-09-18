@@ -64,7 +64,7 @@ namespace Cub
         [JsonProperty("looking_for_other")]
         public string LookingForOther { get; set; }
 
-        [JsonProperty("member_position")]
+        [JsonProperty("position")]
         public string MemberPosition { get; set; }
 
         [JsonProperty("organization")]
