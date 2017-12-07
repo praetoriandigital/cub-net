@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Cub
 {
     public class Organization : CObject
@@ -33,5 +35,13 @@ namespace Cub
         public string Address => _string("address");
 
         public string PostalCode => _string("postal_code");
+
+        public string Phone => _string("phone");
+
+        public string Website => _string("website");
+
+        public string Logo => _string("logo");
+
+        public ICollection<string> Tags => _list<string>("tags");
     }
 }

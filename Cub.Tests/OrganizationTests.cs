@@ -50,5 +50,15 @@ namespace Cub.Tests
             Assert.AreEqual(organization.Address, "304 Charity St");
             Assert.AreEqual(organization.PostalCode, "70510-5131");
         }
+
+        [Test]
+        public void Get_RealOrgWithTags_ShouldReturnTags()
+        {
+            var organization = Organization.Get("org_tBLeinLfH4yG4fJe");
+
+            Assert.NotNull(organization);
+            Assert.AreEqual(1, organization.Tags.Count);
+            Assert.True(organization.Tags.Contains("Law Enforcement"));
+        }
     }
 }
