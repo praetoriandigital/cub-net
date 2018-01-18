@@ -43,5 +43,7 @@ namespace Cub
         public string Logo => _string("logo");
 
         public ICollection<string> Tags => _list<string>("tags");
+
+        public string Email => _string("email");
     }
 }
