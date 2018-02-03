@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
 
@@ -59,6 +61,22 @@ namespace Cub.Tests
             Assert.NotNull(organization);
             Assert.AreEqual(1, organization.Tags.Count);
             Assert.True(organization.Tags.Contains("Law Enforcement"));
+        }
+
+        [Test]
+        public void UploadLogo()
+        {
+            var organization = Organization.Get("org_tBLeinLfH4yG4fJe");
+
+            var path = Path.Combine(Path.GetTempPath(), $"{organization.Id}_logo.png");
+            const string content = "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEW10NBjBBbqAAAAH0lEQVRoge3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAvg0hAAABmmDh1QAAAABJRU5ErkJggg==";
+            var bytes = Convert.FromBase64String(content);
+            File.WriteAllBytes(path, bytes);
+
+            Assert.Throws<ForbiddenException>(() => organization.DeleteLogo());
+            Assert.Throws<ForbiddenException>(() => organization.UploadLogo(path));
+
+            File.Delete(path);
         }
     }
 }

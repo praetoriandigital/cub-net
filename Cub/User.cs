@@ -126,6 +126,18 @@ namespace Cub
             return this;
         }
 
+        public void UploadPhoto(string filename)
+        {
+            Api.UploadImage(filename, "user/photo", Token);
+            Reload();
+        }
+
+        public void DeletePhoto()
+        {
+            Api.DeleteImage("user/photo", Token);
+            Reload();
+        }
+
         #endregion
     }
 }

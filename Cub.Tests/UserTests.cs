@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.IO;
+using NUnit.Framework;
 
 namespace Cub.Tests
 {
@@ -28,6 +30,27 @@ namespace Cub.Tests
             user.Token = string.Empty;
 
             user.Reload();
+        }
+
+        [Test]
+        public void UploadUserPhoto()
+        {
+            var user = Login();
+
+            var path = Path.Combine(Path.GetTempPath(), $"{user.Id}_photo.png");
+            const string content = "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEW10NBjBBbqAAAAH0lEQVRoge3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAvg0hAAABmmDh1QAAAABJRU5ErkJggg==";
+            var bytes = Convert.FromBase64String(content);
+            File.WriteAllBytes(path, bytes);
+
+            user.DeletePhoto();
+            Assert.IsNull(user.PhotoLarge);
+            Assert.IsNull(user.PhotoSmall);
+
+            user.UploadPhoto(path);
+            Assert.IsNotNull(user.PhotoLarge);
+            Assert.IsNotNull(user.PhotoSmall);
+
+            File.Delete(path);
         }
 
         private static User Login()

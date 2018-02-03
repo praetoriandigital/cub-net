@@ -45,5 +45,17 @@ namespace Cub
         public ICollection<string> Tags => _list<string>("tags");
 
         public string Email => _string("email");
+
+        public void UploadLogo(string filename)
+        {
+            Api.UploadImage(filename, $"organizations/{Id}/logo", ApiKey);
+            BaseReload();
+        }
+
+        public void DeleteLogo()
+        {
+            Api.DeleteImage($"organizations/{Id}/logo", ApiKey);
+            BaseReload();
+        }
     }
 }
