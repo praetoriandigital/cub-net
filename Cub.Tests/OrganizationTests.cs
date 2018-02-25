@@ -68,15 +68,9 @@ namespace Cub.Tests
         {
             var organization = Organization.Get("org_tBLeinLfH4yG4fJe");
 
-            var path = Path.Combine(Path.GetTempPath(), $"{organization.Id}_logo.png");
-            const string content = "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEW10NBjBBbqAAAAH0lEQVRoge3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAvg0hAAABmmDh1QAAAABJRU5ErkJggg==";
-            var bytes = Convert.FromBase64String(content);
-            File.WriteAllBytes(path, bytes);
-
+            var imageUrl = "https://raw.githubusercontent.com/praetoriandigital/cub-docs/master/cub-logo.png";
             Assert.Throws<ForbiddenException>(() => organization.DeleteLogo());
-            Assert.Throws<ForbiddenException>(() => organization.UploadLogo(path));
-
-            File.Delete(path);
+            Assert.Throws<ForbiddenException>(() => organization.UploadLogo(imageUrl));
         }
     }
 }

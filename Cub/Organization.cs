@@ -46,9 +46,10 @@ namespace Cub
 
         public string Email => _string("email");
 
-        public void UploadLogo(string filename)
+        public void UploadLogo(string url)
         {
-            Api.UploadImage(filename, $"organizations/{Id}/logo", ApiKey);
+            var parameters = new Dictionary<string, object> {["url"] = url};
+            Api.RequestObject("POST", $"organizations/{Id}/logo", parameters, ApiKey);
             BaseReload();
         }
 
