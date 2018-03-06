@@ -47,13 +47,15 @@
     <Compile Include="LeadTests.cs" />
     <Compile Include="OrganizationTests.cs" />
     <Compile Include="MailingListTests.cs" />
-    <Compile Include="MessageTest.cs" />
+    <Compile Include="ServiceSubscriptionTests.cs" />
     <Compile Include="SubscriptionTests.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

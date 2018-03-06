@@ -12,25 +12,17 @@ namespace Cub
             switch (objType)
             {
                 case "user":
-                    var user = new User();
-                    user.FromObject(obj);
-                    return user;
+                    return new User().FromObject(obj);
                 case "subscription":
-                    var subscription = new Subscription();
-                    subscription.FromObject(obj);
-                    return subscription;
+                    return new Subscription().FromObject(obj);
                 case "mailinglist":
-                    var mailingList = new MailingList();
-                    mailingList.FromObject(obj);
-                    return mailingList;
+                    return new MailingList().FromObject(obj);
                 case "lead":
-                    var lead = new Lead();
-                    lead.FromObject(obj);
-                    return lead;
+                    return new Lead().FromObject(obj);
                 case "organization":
-                    var organization = new Organization();
-                    organization.FromObject(obj);
-                    return organization;
+                    return new Organization().FromObject(obj);
+                case "servicesubscription":
+                    return new ServiceSubscription().FromObject(obj);
             }
 
             return null;

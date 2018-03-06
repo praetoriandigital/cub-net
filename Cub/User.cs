@@ -120,6 +120,11 @@ namespace Cub
             return BaseGet<User>(null, token);
         }
 
+        public static User GetByUid(string id)
+        {
+            return BaseGet<User>(id, null);
+        }
+
         public User Reload()
         {
             BaseReload(string.IsNullOrEmpty(Token) ? base.InstanceUrl : InstanceUrl);
