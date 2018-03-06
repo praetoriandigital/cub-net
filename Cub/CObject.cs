@@ -48,7 +48,7 @@ namespace Cub
 
         public static string ClassUrl(string className)
         {
-            return String.Format("{0}s", className.ToLower());
+            return $"{className.ToLower()}s";
         }
 
         public static string ClassUrl(Type type)
@@ -61,10 +61,7 @@ namespace Cub
             return ClassUrl(obj.GetType().Name);
         }
 
-        public virtual string InstanceUrl
-        {
-            get { return String.Format("{0}/{1}", ClassUrl(this), Id); }
-        }
+        public virtual string InstanceUrl => $"{ClassUrl(this)}/{Id}";
 
         public bool? Deleted => _nullableValue<bool>("deleted");
 
@@ -93,9 +90,11 @@ namespace Cub
 
         protected static T BaseGet<T>(string id, string apiKey) where T : CObject, new()
         {
-            var obj = new T();
-            obj.Id = id;
-            obj.ApiKey = apiKey;
+            var obj = new T
+            {
+                Id = id,
+                ApiKey = apiKey
+            };
             obj.BaseReload();
             return obj;
         }
@@ -148,7 +147,7 @@ namespace Cub
 
         protected string _string(string propName)
         {
-            return Properties[propName] == null ? (string)null : Properties[propName].Value<string>();
+            return Properties[propName] == null ? null : Properties[propName].Value<string>();
         }
 
         protected T _refType<T>(string propName) where T : class
@@ -176,8 +175,7 @@ namespace Cub
 
         protected List<T> _list<T>(string propName)
         {
-            var arr = Properties[propName] as JArray;
-            if (arr == null)
+            if (!(Properties[propName] is JArray arr))
                 return null;
 
             var res = new List<T>();

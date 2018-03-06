@@ -10,50 +10,49 @@ namespace Cub
     {
         public static string Urlify(string key, object value, string prefix)
         {
-            var pfx = string.IsNullOrEmpty(prefix) ? "" : string.Format("{0}__", prefix);
+            var pfx = string.IsNullOrEmpty(prefix) ? "" : $"{prefix}__";
 
-            if (value is JObject)
+            if (value is JObject o)
             {
                 var dict = new Dictionary<string, object>();
-                foreach (var item in (value as JObject).Children())
+                foreach (var item in o.Children())
                 {
                     if (item is JProperty)
                     {
                         var prop = item as JProperty;
-                        dict.Add((string)prop.Name, prop.Value);
+                        dict.Add(prop.Name, prop.Value);
                     }
                 }
-                return Urlify(dict, string.Format("{0}{1}", pfx, key));
+                return Urlify(dict, $"{pfx}{key}");
             }
 
-            if (value is IDictionary)
+            if (value is IDictionary dictionary)
             {
                 var dict = new Dictionary<string, object>();
-                foreach (DictionaryEntry item in value as IDictionary)
+                foreach (DictionaryEntry item in dictionary)
                 {
                     dict.Add((string)item.Key, item.Value);
                 }
-                return Urlify(dict, string.Format("{0}{1}", pfx, key));
+                return Urlify(dict, $"{pfx}{key}");
             }
 
-            if (value is IList)
+            if (value is IList list1)
             {
                 var list = new List<object>();
-                foreach (var item in value as IList)
+                foreach (var item in list1)
                 {
                     list.Add(item);
                 }
-                return Urlify(list, string.Format("{0}{1}", pfx, key));
+                return Urlify(list, $"{pfx}{key}");
             }
 
             string type;
             object sourceValue;
             string valueStr;
 
-            if (value is JValue)
+            if (value is JValue jvalue)
             {
-                var jvalue = (JValue)value;
-                type = jvalue.Value == null ? "string" : jvalue.Value.GetType().Name.ToLower();
+                type = jvalue.Value?.GetType().Name.ToLower() ?? "string";
                 sourceValue = jvalue.Value;
             }
             else
@@ -63,16 +62,19 @@ namespace Cub
             }
 
             if (type == "decimal")
-                valueStr = ((decimal)sourceValue).ToString(CultureInfo.InvariantCulture);
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                valueStr = ((decimal) sourceValue).ToString(CultureInfo.InvariantCulture);
+            }
             else if (type == "double" || type == "float")
-                valueStr = ((double)sourceValue).ToString(CultureInfo.InvariantCulture);
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                valueStr = ((double) sourceValue).ToString(CultureInfo.InvariantCulture);
+            }
             else
                 valueStr = value.ToString();
 
-            return string.Format("{0}{1}={2}",
-                pfx,
-                HttpUtility.UrlEncode(key),
-                HttpUtility.UrlEncode(valueStr));
+            return $"{pfx}{HttpUtility.UrlEncode(key)}={HttpUtility.UrlEncode(valueStr)}";
         }
 
         public static string Urlify(Dictionary<string, object> parameters, string prefix)

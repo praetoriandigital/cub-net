@@ -9,11 +9,11 @@ namespace Cub
     {
         public Exception Exception(Error cubError, HttpStatusCode httpStatusCode)
         {
-            string exceptionMessage = cubError.Description;
+            var exceptionMessage = cubError.Description;
 
             if (cubError.Params != null && cubError.Params.Count > 0)
             {
-                exceptionMessage = string.Format("{0} Params: [{1}]", exceptionMessage, JsonConvert.SerializeObject(cubError.Params));
+                exceptionMessage = $"{exceptionMessage} Params: [{JsonConvert.SerializeObject(cubError.Params)}]";
             }
 
             if (httpStatusCode == HttpStatusCode.InternalServerError)
@@ -51,13 +51,7 @@ namespace Cub
         {
         }
 
-        public override System.Collections.IDictionary Data
-        {
-            get
-            {
-                return Params;
-            }
-        }
+        public override System.Collections.IDictionary Data => Params;
 
         public Exception(string message, HttpStatusCode httpStatusCode, Error cubError)
             : base(message)

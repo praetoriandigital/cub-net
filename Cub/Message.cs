@@ -14,56 +14,36 @@ namespace Cub
 
         public string Subject
         {
-            get { return _string("subject"); }
-            set { Properties["subject"] = value; }
+            get => _string("subject");
+            set => Properties["subject"] = value;
         }
 
-        public int TotalBounces
-        {
-            get { return _value<int>("total_bounces"); }
-        }
+        public int TotalBounces => _value<int>("total_bounces");
 
-        public int TotalDelivered
-        {
-            get { return _value<int>("total_delivered"); }
-        }
+        public int TotalDelivered => _value<int>("total_delivered");
 
-        public int TotalOpens
-        {
-            get { return _value<int>("total_opens"); }
-        }
+        public int TotalOpens => _value<int>("total_opens");
 
-        public int UniqueOpens
-        {
-            get { return _value<int>("unique_opens"); }
-        }
+        public int UniqueOpens => _value<int>("unique_opens");
 
-        public int ValidSubscribers
-        {
-            get { return _value<int>("valid_subscribers"); }
-        }
+        public int ValidSubscribers => _value<int>("valid_subscribers");
 
-        public int ReportedDeliveries
-        {
-            get { return _value<int>("reported_deliveries"); }
-        }
+        public int ReportedDeliveries => _value<int>("reported_deliveries");
 
-        public string FCDB
+        public string FcDb
         {
-            get { return _string("fc_db"); }
-            set { Properties["fc_db"] = value; }
+            get => _string("fc_db");
+            set => Properties["fc_db"] = value;
         }
     
-        public int? FCNewsletterID
+        public int? FcNewsletterId
         {
-            get { return _nullableValue<int>("fc_newsletter_id"); }
-            set { Properties["fc_newsletter_id"] = value; }
+            get => _nullableValue<int>("fc_newsletter_id");
+            set => Properties["fc_newsletter_id"] = value;
         }
 
-        public DateTime? Created
-        {
-            get { return _nullableValue<DateTime>("created"); }
-        }
+        public DateTime? Created => _nullableValue<DateTime>("created");
+
         #region Methods
 
         public static Message Get(string id, string apiKey)

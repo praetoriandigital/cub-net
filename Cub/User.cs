@@ -17,13 +17,7 @@ namespace Cub
             Properties["email_confirmed"] = false;
         }
 
-        public override string InstanceUrl
-        {
-            get
-            {
-                return "user";
-            }
-        }
+        public override string InstanceUrl => "user";
 
         public DateTime? BirthDate => _nullableValue<DateTime>("birth_date");
 
@@ -53,32 +47,32 @@ namespace Cub
 
         public string FirstName
         {
-            get { return _string("first_name"); }
-            set { Properties["first_name"] = value; }
+            get => _string("first_name");
+            set => Properties["first_name"] = value;
         }
 
         public string LastName
         {
-            get { return _string("last_name"); }
-            set { Properties["last_name"] = value; }
+            get => _string("last_name");
+            set => Properties["last_name"] = value;
         }
 
         public string Email
         {
-            get { return _string("email"); }
-            set { Properties["email"] = value; }
+            get => _string("email");
+            set => Properties["email"] = value;
         }
 
         public bool EmailConfirmed
         {
-            get { return _value<bool>("email_confirmed"); }
-            set { Properties["email_confirmed"] = value; }
+            get => _value<bool>("email_confirmed");
+            set => Properties["email_confirmed"] = value;
         }
 
         public string Username
         {
-            get { return _string("username"); }
-            set { Properties["username"] = value; }
+            get => _string("username");
+            set => Properties["username"] = value;
         }
 
         public string MiddleName
@@ -95,8 +89,8 @@ namespace Cub
 
         public string Token
         {
-            get { return ApiKey; }
-            set { ApiKey = value; }
+            get => ApiKey;
+            set => ApiKey = value;
         }
 
         #endregion
@@ -107,8 +101,8 @@ namespace Cub
         {
             var postData = JObject.FromObject(new
             {
-                username = username,
-                password = password,
+                username,
+                password,
             });
             var user = BasePost<User>("user/login", postData);
             user.Token = user._string("token");

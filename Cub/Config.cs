@@ -8,8 +8,8 @@ namespace Cub
 
         public static string ApiKey
         {
-            get { return string.IsNullOrEmpty(_apiKey) ? ConfigurationManager.AppSettings["CubApiKey"] : _apiKey; }
-            set { _apiKey = value; }
+            get => string.IsNullOrEmpty(_apiKey) ? ConfigurationManager.AppSettings["CubApiKey"] : _apiKey;
+            set => _apiKey = value;
         }
 
         public const string DefaultApiUrl = "https://cub.policeone.com/v1/";
@@ -25,7 +25,7 @@ namespace Cub
                 var apiUrl = string.IsNullOrEmpty(_apiUrl) ? defaultUrl : _apiUrl;
                 return apiUrl.EndsWith("/") ? apiUrl : apiUrl + "/";
             }
-            set { _apiUrl = value; }
+            set => _apiUrl = value;
         }
 
     }

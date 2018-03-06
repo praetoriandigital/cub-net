@@ -17,21 +17,24 @@ namespace Cub
             // Make request URL and request object
             var reqUrl = Config.ApiUrl + url;
             if (method.ToLower() == "get")
-                reqUrl += string.Format("?{0}", parameters);
+                reqUrl += $"?{parameters}";
             var req = (HttpWebRequest)WebRequest.Create(reqUrl);
             req.Method = method;
             req.ContentType = "application/x-www-form-urlencoded";
 
             // Add auth
             var reqKey = string.IsNullOrEmpty(apiKey) ? Config.ApiKey : apiKey;
-            req.Headers.Add("Authorization", string.Format("Bearer {0}", reqKey));
+            req.Headers.Add("Authorization", $"Bearer {reqKey}");
 
             // Add system information
-            req.UserAgent = string.Format("Cub Client for .Net v{0}", FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion);
-            var sysInfo = new JObject();
-            sysInfo["publisher"] = "Cub";
-            sysInfo["platform"] = Environment.OSVersion.ToString();
-            sysInfo["language"] = string.Format("CLR {0}", Environment.Version.ToString());
+            req.UserAgent =
+                $"Cub Client for .Net v{FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
+            var sysInfo = new JObject
+            {
+                ["publisher"] = "Cub",
+                ["platform"] = Environment.OSVersion.ToString(),
+                ["language"] = $"CLR {Environment.Version}"
+            };
             req.Headers.Add("X-Cub-User-Agent-Info", sysInfo.ToString(Formatting.None));
 
             // Add parameters for requests other than GET
