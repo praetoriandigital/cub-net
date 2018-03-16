@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cub
 {
@@ -16,6 +17,11 @@ namespace Cub
         public static ServiceSubscription Get(string id)
         {
             return BaseGet<ServiceSubscription>(id, null);
+        }
+
+        public static List<ServiceSubscription> List(Dictionary<string, object> filters)
+        {
+            return BaseList<ServiceSubscription>(filters, null);
         }
 
         private string CustomerUid => _string("customer");
