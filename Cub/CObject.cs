@@ -138,7 +138,7 @@ namespace Cub
             var offset = 0;
             while (true)
             {
-                var objects = BaseList<T>(filters, apiKey, offset, count);
+                var objects = BaseList<T>(filters, apiKey, offset, count, 3);
                 allObjects.AddRange(objects);
 
                 if (objects.Count < count)
@@ -149,13 +149,13 @@ namespace Cub
             return allObjects;
         }
 
-        protected static List<T> BaseList<T>(Dictionary<string, object> filters, string apiKey, int offset, int count)
+        protected static List<T> BaseList<T>(Dictionary<string, object> filters, string apiKey, int offset, int count, int maxRetries = 1)
             where T : CObject, new()
         {
             filters["offset"] = offset;
             filters["count"] = count;
             var objects = new List<T>();
-            var items = Api.RequestArray("GET", ClassUrl(typeof(T)), filters, apiKey);
+            var items = Api.RequestArray("GET", ClassUrl(typeof(T)), filters, apiKey, maxRetries);
             foreach (var item in items)
             {
                 T obj = new T();

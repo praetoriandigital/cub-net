@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 
 namespace Cub
 {
     public class Api
     {
-        public static string Request(string method, string url, string parameters, string apiKey)
+        public static string Request(string method, string url, string parameters, string apiKey, int maxReries = 1)
         {
             // Make request URL and request object
             var reqUrl = Config.ApiUrl + url;
@@ -48,25 +49,31 @@ namespace Cub
                 }
             }
 
-            // Send request and handle errors
-            try
+            while (true)
             {
-                using (var response = req.GetResponse())
+                maxReries--;
+                // Send request and handle errors
+                try
                 {
-                    return ReadStream(response.GetResponseStream());
+                    using (var response = req.GetResponse())
+                    {
+                        return ReadStream(response.GetResponseStream());
+                    }
                 }
-            }
-            catch (WebException webException)
-            {
-                if (webException.Response != null)
+                catch (WebException webException)
                 {
-                    var statusCode = ((HttpWebResponse)webException.Response).StatusCode;
-                    var unipagError = JsonConvert<Error>.ConvertJsonToObject(ReadStream(webException.Response.GetResponseStream()), "error");
+                    if (webException.Response != null)
+                    {
+                        var statusCode = ((HttpWebResponse) webException.Response).StatusCode;
+                        var unipagError = JsonConvert<Error>.ConvertJsonToObject(ReadStream(webException.Response.GetResponseStream()), "error");
 
-                    throw new CubExceptionFactory().Exception(unipagError, statusCode);
+                        throw new CubExceptionFactory().Exception(unipagError, statusCode);
+                    }
+
+                    if (maxReries <= 0)
+                        throw;
+                    Thread.Sleep(100);
                 }
-
-                throw;
             }
         }
 
@@ -78,14 +85,14 @@ namespace Cub
             }
         }
 
-        public static string Request(string method, string url, Dictionary<string, object> parameters, string apiKey)
+        public static string Request(string method, string url, Dictionary<string, object> parameters, string apiKey, int maxReries = 1)
         {
-            return Request(method, url, Utils.Urlify(parameters), apiKey);
+            return Request(method, url, Utils.Urlify(parameters), apiKey, maxReries);
         }
 
-        public static string Request(string method, string url, JObject parameters, string apiKey)
+        public static string Request(string method, string url, JObject parameters, string apiKey, int maxReries = 1)
         {
-            return Request(method, url, Utils.Urlify(parameters), apiKey);
+            return Request(method, url, Utils.Urlify(parameters), apiKey, maxReries);
         }
 
         public static JObject RequestObject(string method, string url, Dictionary<string, object> parameters, string apiKey)
@@ -122,9 +129,9 @@ namespace Cub
             return RequestObject(method, url, new Dictionary<string, object>(), Config.ApiKey);
         }
 
-        public static JArray RequestArray(string method, string url, Dictionary<string, object> parameters, string apiKey)
+        public static JArray RequestArray(string method, string url, Dictionary<string, object> parameters, string apiKey, int maxRetries = 1)
         {
-            string response = Request(method, url, parameters, apiKey);
+            string response = Request(method, url, parameters, apiKey, maxRetries);
             var obj = JArray.Parse(response);
             return obj;
         }
