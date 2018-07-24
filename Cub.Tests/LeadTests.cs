@@ -179,5 +179,23 @@ namespace Cub.Tests
             var products = lead.Data.GetProducts();
             Assert.IsTrue(products.Count() == 1);
         }
+
+        [Test]
+        public void LoadLeadWithOrganizationField()
+        {
+            var json = @"{
+                ""object"": ""lead"", 
+                ""id"": ""led_Ko3tYub3lqdZfHd8"",
+            }";
+            var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
+            Assert.NotNull(lead);
+
+            lead = Lead.Get(lead.Id);
+            Assert.NotNull(lead);
+
+            Assert.NotNull(lead.Organization);
+            Assert.NotNull(lead.Organization.Country);
+            Assert.NotNull(lead.Organization.State);
+        }
     }
 }

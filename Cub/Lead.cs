@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Cub
 {
@@ -34,5 +35,14 @@ namespace Cub
         public string Form => _string("form");
 
         public bool IsProduction => _value<bool>("production");
+
+        private string OrganizationUid => _string("organization");
+
+        public Organization Organization => string.IsNullOrEmpty(OrganizationUid) ? null : Organization.Get(OrganizationUid);
+
+        public static Lead Get(string id, string apiKey = null)
+        {
+            return BaseGet<Lead>(id, apiKey);
+        }
     }
 }
