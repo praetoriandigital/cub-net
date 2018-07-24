@@ -210,6 +210,9 @@ namespace Cub.Tests
                 Assert.GreaterOrEqual(lead.Created, from);
                 Assert.LessOrEqual(lead.Created, to);
             }
+
+            leads = Lead.List(offset: 0, count: 1);
+            Assert.AreEqual(leads.Count, 1);
         }
     }
 }

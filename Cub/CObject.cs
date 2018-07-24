@@ -138,9 +138,7 @@ namespace Cub
             var offset = 0;
             while (true)
             {
-                filters["offset"] = offset;
-                filters["count"] = count;
-                var objects = GetList<T>(filters, apiKey);
+                var objects = BaseList<T>(filters, apiKey, offset, count);
                 allObjects.AddRange(objects);
 
                 if (objects.Count < count)
@@ -151,8 +149,11 @@ namespace Cub
             return allObjects;
         }
 
-        private static List<T> GetList<T>(Dictionary<string, object> filters, string apiKey) where T : CObject, new()
+        protected static List<T> BaseList<T>(Dictionary<string, object> filters, string apiKey, int offset, int count)
+            where T : CObject, new()
         {
+            filters["offset"] = offset;
+            filters["count"] = count;
             var objects = new List<T>();
             var items = Api.RequestArray("GET", ClassUrl(typeof(T)), filters, apiKey);
             foreach (var item in items)
@@ -162,6 +163,7 @@ namespace Cub
                 obj.FromObject((JObject) item);
                 objects.Add(obj);
             }
+
             return objects;
         }
 

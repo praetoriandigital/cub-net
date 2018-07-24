@@ -47,12 +47,22 @@ namespace Cub
 
         public static List<Lead> List(DateTime? from = null, DateTime? to = null)
         {
+            return BaseList<Lead>(PrepareFilters(from, to), null);
+        }
+
+        public static List<Lead> List(int offset, int count, DateTime? from = null, DateTime? to = null)
+        {
+            return BaseList<Lead>(PrepareFilters(from, to), null, offset, count);
+        }
+
+        private static Dictionary<string, object> PrepareFilters(DateTime? from, DateTime? to)
+        {
             var filters = new Dictionary<string, object>();
             if (from.HasValue)
                 filters["created__gte"] = Utils.UnixTimestamp(from.Value);
             if (to.HasValue)
                 filters["created__lte"] = Utils.UnixTimestamp(to.Value);
-            return BaseList<Lead>(filters, null);
+            return filters;
         }
     }
 }
