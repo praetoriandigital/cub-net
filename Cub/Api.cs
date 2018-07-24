@@ -13,7 +13,7 @@ namespace Cub
 {
     public class Api
     {
-        public static string Request(string method, string url, string parameters, string apiKey, int maxReries = 1)
+        public static string Request(string method, string url, string parameters, string apiKey, int maxRetries = 1)
         {
             // Make request URL and request object
             var reqUrl = Config.ApiUrl + url;
@@ -51,7 +51,7 @@ namespace Cub
 
             while (true)
             {
-                maxReries--;
+                maxRetries--;
                 // Send request and handle errors
                 try
                 {
@@ -70,7 +70,7 @@ namespace Cub
                         throw new CubExceptionFactory().Exception(unipagError, statusCode);
                     }
 
-                    if (maxReries <= 0)
+                    if (maxRetries <= 0)
                         throw;
                     Thread.Sleep(100);
                 }
@@ -85,14 +85,14 @@ namespace Cub
             }
         }
 
-        public static string Request(string method, string url, Dictionary<string, object> parameters, string apiKey, int maxReries = 1)
+        public static string Request(string method, string url, Dictionary<string, object> parameters, string apiKey, int maxRetries = 1)
         {
-            return Request(method, url, Utils.Urlify(parameters), apiKey, maxReries);
+            return Request(method, url, Utils.Urlify(parameters), apiKey, maxRetries);
         }
 
-        public static string Request(string method, string url, JObject parameters, string apiKey, int maxReries = 1)
+        public static string Request(string method, string url, JObject parameters, string apiKey, int maxRetries = 1)
         {
-            return Request(method, url, Utils.Urlify(parameters), apiKey, maxReries);
+            return Request(method, url, Utils.Urlify(parameters), apiKey, maxRetries);
         }
 
         public static JObject RequestObject(string method, string url, Dictionary<string, object> parameters, string apiKey)
