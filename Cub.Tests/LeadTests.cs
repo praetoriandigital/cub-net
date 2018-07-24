@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Newtonsoft.Json.Linq;
 
@@ -196,6 +197,19 @@ namespace Cub.Tests
             Assert.NotNull(lead.Organization);
             Assert.NotNull(lead.Organization.Country);
             Assert.NotNull(lead.Organization.State);
+        }
+
+        [Test]
+        public void LoadLeadsWithFilter()
+        {
+            var from = new DateTime(2017, 9, 14);
+            var to = new DateTime(2017, 9, 15);
+            var leads = Lead.List(from: from, to: to);
+            foreach (var lead in leads)
+            {
+                Assert.GreaterOrEqual(lead.Created, from);
+                Assert.LessOrEqual(lead.Created, to);
+            }
         }
     }
 }

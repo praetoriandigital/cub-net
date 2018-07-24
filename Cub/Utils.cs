@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Web;
 using System.Collections.Generic;
 using System.Collections;
@@ -121,6 +122,11 @@ namespace Cub
         public static string Urlify(JObject parameters)
         {
             return Urlify(parameters, null);
+        }
+
+        public static int UnixTimestamp(DateTime d)
+        {
+            return (int)d.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }

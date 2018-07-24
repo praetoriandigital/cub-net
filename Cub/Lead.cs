@@ -44,5 +44,15 @@ namespace Cub
         {
             return BaseGet<Lead>(id, apiKey);
         }
+
+        public static List<Lead> List(DateTime? from = null, DateTime? to = null)
+        {
+            var filters = new Dictionary<string, object>();
+            if (from.HasValue)
+                filters["created__gte"] = Utils.UnixTimestamp(from.Value);
+            if (to.HasValue)
+                filters["created__lte"] = Utils.UnixTimestamp(to.Value);
+            return BaseList<Lead>(filters, null);
+        }
     }
 }
