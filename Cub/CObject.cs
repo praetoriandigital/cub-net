@@ -133,13 +133,33 @@ namespace Cub
 
         protected static List<T> BaseList<T>(Dictionary<string, object> filters, string apiKey) where T : CObject, new()
         {
-            var items = Api.RequestArray("GET", ClassUrl(typeof(T)), filters, apiKey);
+            var allObjects = new List<T>();
+            var count = 100;
+            var offset = 0;
+            while (true)
+            {
+                filters["offset"] = offset;
+                filters["count"] = count;
+                var objects = GetList<T>(filters, apiKey);
+                allObjects.AddRange(objects);
+
+                if (objects.Count < count)
+                    break;
+
+                offset += count;
+            }
+            return allObjects;
+        }
+
+        private static List<T> GetList<T>(Dictionary<string, object> filters, string apiKey) where T : CObject, new()
+        {
             var objects = new List<T>();
+            var items = Api.RequestArray("GET", ClassUrl(typeof(T)), filters, apiKey);
             foreach (var item in items)
             {
                 T obj = new T();
                 obj.PopulateApiKey(apiKey);
-                obj.FromObject((JObject)item);
+                obj.FromObject((JObject) item);
                 objects.Add(obj);
             }
             return objects;
