@@ -24,13 +24,9 @@ namespace Cub
 
         public string Name => _string("name");
 
-        private string CountryUid => _string("country");
+        public Country Country => _expandable("country", Country.Get);
 
-        private string StateUid => _string("state");
-
-        public Country Country => string.IsNullOrEmpty(CountryUid) ? null : Country.Get(CountryUid);
-
-        public State State => string.IsNullOrEmpty(StateUid) ? null : State.Get(StateUid);
+        public State State => _expandable("state", State.Get);
 
         public string Address => _string("address");
 

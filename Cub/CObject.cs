@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Cub
 {
@@ -77,25 +78,25 @@ namespace Cub
             PopulateApiKey();
         }
 
-        protected CObject BaseReload()
+        protected CObject BaseReload(Dictionary<string, object> parameters = null)
         {
-            return BaseReload(InstanceUrl);
+            return BaseReload(InstanceUrl, parameters);
         }
 
-        protected CObject BaseReload(string url)
+        protected CObject BaseReload(string url, Dictionary<string, object> parameters = null)
         {
             PopulateApiKey();
-            return FromObject(Api.RequestObject("GET", url, ApiKey));
+            return FromObject(Api.RequestObject("GET", url, parameters, ApiKey));
         }
 
-        protected static T BaseGet<T>(string id, string apiKey) where T : CObject, new()
+        protected static T BaseGet<T>(string id, string apiKey, Dictionary<string, object> parameters = null) where T : CObject, new()
         {
             var obj = new T
             {
                 Id = id,
                 ApiKey = apiKey
             };
-            obj.BaseReload();
+            obj.BaseReload(parameters);
             return obj;
         }
 
@@ -181,6 +182,22 @@ namespace Cub
             }
 
             return JsonConvert.DeserializeObject<T>(data);
+        }
+
+        protected T _expandable<T>(string propName, Func<string, T> getById) where T : CObject, new()
+        {
+            var data = Properties[propName]?.ToString();
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+
+            if (data.StartsWith("{"))
+            {
+                return new T().FromString(data) as T;
+            }
+
+            return getById(data);
         }
 
         protected T _value<T>(string propName) where T : struct

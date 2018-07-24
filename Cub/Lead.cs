@@ -36,13 +36,15 @@ namespace Cub
 
         public bool IsProduction => _value<bool>("production");
 
-        private string OrganizationUid => _string("organization");
+        public Organization Organization => _expandable("organization", Organization.Get);
 
-        public Organization Organization => string.IsNullOrEmpty(OrganizationUid) ? null : Organization.Get(OrganizationUid);
-
-        public static Lead Get(string id, string apiKey = null)
+        public static Lead Get(string id, string apiKey = null, string expand = "organization__country,organization__state")
         {
-            return BaseGet<Lead>(id, apiKey);
+            var parameters = new Dictionary<string, object>
+            {
+                ["expand"] = "organization__country,organization__state",
+            };
+            return BaseGet<Lead>(id, apiKey, parameters);
         }
 
         public static List<Lead> List(DateTime? from = null, DateTime? to = null)
