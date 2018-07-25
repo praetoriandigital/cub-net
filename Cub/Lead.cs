@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Cub
 {
@@ -38,8 +39,9 @@ namespace Cub
 
         public Organization Organization => _expandable<Organization>("organization");
 
-        public static List<Lead> List(int offset = 0, int count = 20, DateTime? from = null, DateTime? to = null, IEnumerable<string> expands = null)
+        public static List<Lead> List(int offset = 0, int count = 20, DateTime? from = null, DateTime? to = null, params Expression<Func<Lead, object>>[] expandExpressions)
         {
+            var expands = ParseExpressions(expandExpressions);
             return BaseList<Lead>(PrepareParameters(from, to, expands), null, offset, count);
         }
 

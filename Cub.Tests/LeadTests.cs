@@ -190,9 +190,7 @@ namespace Cub.Tests
             var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
             Assert.NotNull(lead);
 
-            lead.Reload(new[] {"organization__country", "organization__state"});
-            Assert.NotNull(lead);
-
+            lead.Reload(l => l.Organization.Country, l => l.Organization.State);
             Assert.NotNull(lead.Organization);
             Assert.NotNull(lead.Organization.Country);
             Assert.NotNull(lead.Organization.State);
@@ -231,14 +229,14 @@ namespace Cub.Tests
             Assert.Null(lead.Organization.Country);
 
             // reload only with organization
-            lead.Reload(new[] {"organization"});
+            lead.Reload(l => l.Organization);
             Assert.NotNull(lead.Organization.City);
             Assert.NotNull(lead.Organization.Name);
             Assert.Null(lead.Organization.Country.Name);
             Assert.Null(lead.Organization.State.Name);
 
             // reload with country and state
-            lead.Reload(new[] {"organization__country", "organization__state"});
+            lead.Reload(l => l.Organization.Country, l => l.Organization.State);
             Assert.NotNull(lead.Organization.Country.Name);
             Assert.NotNull(lead.Organization.State.Name);
 
@@ -260,7 +258,10 @@ namespace Cub.Tests
                 Assert.Null(lead.Organization.Name);
             }
 
-            leads = Lead.List(0, 3, from: from, expands: new[] {"organization__country", "organization__state"});
+            leads = Lead.List(
+                0, 3, 
+                from, null,
+                l => l.Organization.Country, l => l.Organization.State);
             foreach (var lead in leads)
             {
                 Assert.NotNull(lead.Organization.Country.Name);

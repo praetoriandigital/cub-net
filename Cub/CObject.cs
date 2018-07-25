@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq.Expressions;
 
 namespace Cub
 {
@@ -225,12 +226,23 @@ namespace Cub
         {
         }
 
-        public T Reload(IEnumerable<string> expands = null)
+        public T Reload()
+        {
+            return Reload(new Dictionary<string, object>());
+        }
+
+        public T Reload(params Expression<Func<T, object>>[] expands)
         {
             return Reload(new Dictionary<string, object>(), expands);
         }
 
-        public T Reload(Dictionary<string, object> parameters, IEnumerable<string> expands = null)
+        public T Reload(Dictionary<string, object> parameters, params Expression<Func<T, object>>[] expandExpressions)
+        {
+            var expands = ParseExpressions(expandExpressions);
+            return Reload(parameters, expands);
+        }
+
+        private T Reload(Dictionary<string, object> parameters, IEnumerable<string> expands = null)
         {
             if (expands != null)
             {
@@ -270,6 +282,32 @@ namespace Cub
 
             _expandedObjects[propName] = obj;
             return obj;
+        }
+
+        protected static List<string> ParseExpressions(Expression<Func<T, object>>[] expressions)
+        {
+            var expands = new List<string>();
+            foreach (var expression in expressions)
+            {
+                var names = new List<string>();
+                var ex = expression.Body;
+                while (ex.NodeType != ExpressionType.Parameter)
+                {
+                    if (ex.NodeType != ExpressionType.MemberAccess)
+                        throw new InvalidOperationException("Expression must be a MemberAccess expression.");
+
+                    var member = (MemberExpression) ex;
+                    var name = member.Member.Name.ToLower();
+                    names.Insert(0, name);
+
+                    ex = member.Expression;
+                }
+
+                var expand = string.Join("__", names.ToArray());
+                expands.Add(expand);
+            }
+
+            return expands;
         }
 
         protected static Dictionary<string, object> AddExpand(Dictionary<string, object> parameters, IEnumerable<string> expands)
