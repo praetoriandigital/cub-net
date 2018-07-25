@@ -130,7 +130,7 @@ namespace Cub
             return FromObject(Api.RequestObject("DELETE", InstanceUrl, ApiKey));
         }
 
-        protected static List<T> BaseList<T>(Dictionary<string, object> parameters, string apiKey) where T : CObject, new()
+        protected static List<T> BaseListAll<T>(Dictionary<string, object> parameters, string apiKey) where T : CObject, new()
         {
             var allObjects = new List<T>();
             var count = 100;
@@ -148,7 +148,7 @@ namespace Cub
             return allObjects;
         }
 
-        protected static List<T> BaseList<T>(Dictionary<string, object> parameters, string apiKey, int offset, int count, int maxRetries = 1)
+        protected static List<T> BaseList<T>(Dictionary<string, object> parameters, string apiKey, int offset = 0, int count = 20, int maxRetries = 1)
             where T : CObject, new()
         {
             parameters["offset"] = offset;

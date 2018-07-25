@@ -38,12 +38,7 @@ namespace Cub
 
         public Organization Organization => _expandable<Organization>("organization");
 
-        public static List<Lead> List(DateTime? from = null, DateTime? to = null, IEnumerable<string> expands = null)
-        {
-            return BaseList<Lead>(PrepareParameters(from, to, expands), null);
-        }
-
-        public static List<Lead> List(int offset, int count, DateTime? from = null, DateTime? to = null, IEnumerable<string> expands = null)
+        public static List<Lead> List(int offset = 0, int count = 20, DateTime? from = null, DateTime? to = null, IEnumerable<string> expands = null)
         {
             return BaseList<Lead>(PrepareParameters(from, to, expands), null, offset, count);
         }
