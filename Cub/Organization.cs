@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Cub
 {
-    public class Organization : CObject
+    public class Organization : ExpandableCObject<Organization>
     {
         public Organization()
         {
@@ -24,9 +24,9 @@ namespace Cub
 
         public string Name => _string("name");
 
-        public Country Country => _expandable("country", Country.Get);
+        public Country Country => _expandable<Country>("country");
 
-        public State State => _expandable("state", State.Get);
+        public State State => _expandable<State>("state");
 
         public string Address => _string("address");
 

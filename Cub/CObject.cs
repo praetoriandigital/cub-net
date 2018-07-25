@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Cub
 {
@@ -132,14 +130,14 @@ namespace Cub
             return FromObject(Api.RequestObject("DELETE", InstanceUrl, ApiKey));
         }
 
-        protected static List<T> BaseList<T>(Dictionary<string, object> filters, string apiKey) where T : CObject, new()
+        protected static List<T> BaseList<T>(Dictionary<string, object> parameters, string apiKey) where T : CObject, new()
         {
             var allObjects = new List<T>();
             var count = 100;
             var offset = 0;
             while (true)
             {
-                var objects = BaseList<T>(filters, apiKey, offset, count, 3);
+                var objects = BaseList<T>(parameters, apiKey, offset, count, 3);
                 allObjects.AddRange(objects);
 
                 if (objects.Count < count)
@@ -150,13 +148,13 @@ namespace Cub
             return allObjects;
         }
 
-        protected static List<T> BaseList<T>(Dictionary<string, object> filters, string apiKey, int offset, int count, int maxRetries = 1)
+        protected static List<T> BaseList<T>(Dictionary<string, object> parameters, string apiKey, int offset, int count, int maxRetries = 1)
             where T : CObject, new()
         {
-            filters["offset"] = offset;
-            filters["count"] = count;
+            parameters["offset"] = offset;
+            parameters["count"] = count;
             var objects = new List<T>();
-            var items = Api.RequestArray("GET", ClassUrl(typeof(T)), filters, apiKey, maxRetries);
+            var items = Api.RequestArray("GET", ClassUrl(typeof(T)), parameters, apiKey, maxRetries);
             foreach (var item in items)
             {
                 T obj = new T();
@@ -182,22 +180,6 @@ namespace Cub
             }
 
             return JsonConvert.DeserializeObject<T>(data);
-        }
-
-        protected T _expandable<T>(string propName, Func<string, T> getById) where T : CObject, new()
-        {
-            var data = Properties[propName]?.ToString();
-            if (string.IsNullOrEmpty(data))
-            {
-                return null;
-            }
-
-            if (data.StartsWith("{"))
-            {
-                return new T().FromString(data) as T;
-            }
-
-            return getById(data);
         }
 
         protected T _value<T>(string propName) where T : struct
@@ -228,6 +210,75 @@ namespace Cub
         public override string ToString()
         {
             return Properties.ToString();
+        }
+    }
+
+    public class ExpandableCObject<T> : CObject where T : CObject
+    {
+        private readonly Dictionary<string, CObject> _expandedObjects = new Dictionary<string, CObject>();
+
+        protected ExpandableCObject()
+        {
+        }
+
+        protected ExpandableCObject(T obj) : base(obj)
+        {
+        }
+
+        public T Reload(IEnumerable<string> expands = null)
+        {
+            return Reload(new Dictionary<string, object>(), expands);
+        }
+
+        public T Reload(Dictionary<string, object> parameters, IEnumerable<string> expands = null)
+        {
+            if (expands != null)
+            {
+                parameters = AddExpand(parameters, expands);
+            }
+
+            _expandedObjects.Clear();
+            return BaseReload(parameters) as T;
+        }
+
+        protected TProp _expandable<TProp>(string propName) where TProp : CObject, new()
+        {
+            if (_expandedObjects.ContainsKey(propName))
+            {
+                return _expandedObjects[propName] as TProp;
+            }
+
+            var data = Properties[propName]?.ToString();
+            if (string.IsNullOrEmpty(data))
+            {
+                return null;
+            }
+
+            TProp obj;
+            if (data.StartsWith("{"))
+            {
+                obj = new TProp().FromString(data) as TProp;
+            }
+            else
+            {
+                obj = new TProp
+                {
+                    Id = data,
+                    ApiKey = ApiKey
+                };
+            }
+
+            _expandedObjects[propName] = obj;
+            return obj;
+        }
+
+        protected static Dictionary<string, object> AddExpand(Dictionary<string, object> parameters, IEnumerable<string> expands)
+        {
+            parameters = new Dictionary<string, object>(parameters ?? new Dictionary<string, object>())
+            {
+                ["expand"] = string.Join(",", new List<string>(expands).ToArray()),
+            };
+            return parameters;
         }
     }
 }

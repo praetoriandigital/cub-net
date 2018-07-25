@@ -23,7 +23,11 @@ namespace Cub.Tests
 
             Assert.NotNull(organization);
             Assert.IsNotNullOrEmpty(organization.Id);
+
+            organization.Country.Reload();
             Assert.AreEqual(organization.Country?.Name, "United States");
+
+            organization.State.Reload();
             Assert.AreEqual(organization.State?.Name, "Louisiana");
         }
 

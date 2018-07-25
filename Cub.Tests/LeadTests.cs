@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-
 using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
@@ -191,7 +190,7 @@ namespace Cub.Tests
             var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
             Assert.NotNull(lead);
 
-            lead = Lead.Get(lead.Id);
+            lead.Reload(new[] {"organization__country", "organization__state"});
             Assert.NotNull(lead);
 
             Assert.NotNull(lead.Organization);
@@ -213,6 +212,60 @@ namespace Cub.Tests
 
             leads = Lead.List(offset: 0, count: 1);
             Assert.AreEqual(leads.Count, 1);
+        }
+
+        [Test]
+        public void LoadLeadWithExpands()
+        {
+            var json = @"{
+                ""object"": ""lead"", 
+                ""id"": ""led_Ko3tYub3lqdZfHd8"",
+            }";
+            var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
+            Assert.NotNull(lead);
+
+            // reload without expands
+            lead.Reload();
+            Assert.Null(lead.Organization.City);
+            Assert.Null(lead.Organization.Name);
+            Assert.Null(lead.Organization.Country);
+
+            // reload only with organization
+            lead.Reload(new[] {"organization"});
+            Assert.NotNull(lead.Organization.City);
+            Assert.NotNull(lead.Organization.Name);
+            Assert.Null(lead.Organization.Country.Name);
+            Assert.Null(lead.Organization.State.Name);
+
+            // reload with country and state
+            lead.Reload(new[] {"organization__country", "organization__state"});
+            Assert.NotNull(lead.Organization.Country.Name);
+            Assert.NotNull(lead.Organization.State.Name);
+
+            // reload without expands again
+            lead.Reload();
+            Assert.Null(lead.Organization.City);
+            Assert.Null(lead.Organization.Name);
+            Assert.Null(lead.Organization.Country);
+        }
+
+        [Test]
+        public void LoadLeadsWithExpands()
+        {
+            var from = new DateTime(2018, 7, 24);
+            var leads = Lead.List(0, 3, from: from);
+            foreach (var lead in leads)
+            {
+                Assert.NotNull(lead.Organization);
+                Assert.Null(lead.Organization.Name);
+            }
+
+            leads = Lead.List(0, 3, from: from, expands: new[] {"organization__country", "organization__state"});
+            foreach (var lead in leads)
+            {
+                Assert.NotNull(lead.Organization.Country.Name);
+                Assert.NotNull(lead.Organization.State.Name);
+            }
         }
     }
 }

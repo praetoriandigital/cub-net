@@ -19,5 +19,11 @@
         public override string InstanceUrl => $"country/{Id}";
 
         public string Name => _string("name");
+
+        public Country Reload()
+        {
+            BaseReload();
+            return this;
+        }
     }
 }

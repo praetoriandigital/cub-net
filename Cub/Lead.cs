@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cub
 {
-    public class Lead : CObject
+    public class Lead : ExpandableCObject<Lead>
     {
         public Lead()
         {
@@ -36,35 +36,28 @@ namespace Cub
 
         public bool IsProduction => _value<bool>("production");
 
-        public Organization Organization => _expandable("organization", Organization.Get);
+        public Organization Organization => _expandable<Organization>("organization");
 
-        public static Lead Get(string id, string apiKey = null, string expand = "organization__country,organization__state")
+        public static List<Lead> List(DateTime? from = null, DateTime? to = null, IEnumerable<string> expands = null)
         {
-            var parameters = new Dictionary<string, object>
-            {
-                ["expand"] = "organization__country,organization__state",
-            };
-            return BaseGet<Lead>(id, apiKey, parameters);
+            return BaseList<Lead>(PrepareParameters(from, to, expands), null);
         }
 
-        public static List<Lead> List(DateTime? from = null, DateTime? to = null)
+        public static List<Lead> List(int offset, int count, DateTime? from = null, DateTime? to = null, IEnumerable<string> expands = null)
         {
-            return BaseList<Lead>(PrepareFilters(from, to), null);
+            return BaseList<Lead>(PrepareParameters(from, to, expands), null, offset, count);
         }
 
-        public static List<Lead> List(int offset, int count, DateTime? from = null, DateTime? to = null)
+        private static Dictionary<string, object> PrepareParameters(DateTime? from, DateTime? to, IEnumerable<string> expands)
         {
-            return BaseList<Lead>(PrepareFilters(from, to), null, offset, count);
-        }
-
-        private static Dictionary<string, object> PrepareFilters(DateTime? from, DateTime? to)
-        {
-            var filters = new Dictionary<string, object>();
+            var parameters = new Dictionary<string, object>();
             if (from.HasValue)
-                filters["created__gte"] = Utils.UnixTimestamp(from.Value);
+                parameters["created__gte"] = Utils.UnixTimestamp(from.Value);
             if (to.HasValue)
-                filters["created__lte"] = Utils.UnixTimestamp(to.Value);
-            return filters;
+                parameters["created__lte"] = Utils.UnixTimestamp(to.Value);
+            if (expands != null)
+                parameters = AddExpand(parameters, expands);
+            return parameters;
         }
     }
 }

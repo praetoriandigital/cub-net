@@ -17,5 +17,11 @@
         }
 
         public string Name => _string("name");
+
+        public State Reload()
+        {
+            BaseReload();
+            return this;
+        }
     }
 }
