@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Cub</id>
-    <version>0.3.2</version>
+    <version>0.3.5</version>
     <authors>Denis Stebunov</authors>
     <owners>ivelum</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

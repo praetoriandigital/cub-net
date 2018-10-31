@@ -12,6 +12,12 @@ namespace Cub
         {
         }
 
+        public string Name
+        {
+            get => _string("name");
+            set => Properties["name"] = value;
+        }
+
         public string Subject
         {
             get => _string("subject");
@@ -56,24 +62,24 @@ namespace Cub
             return BaseGet<Message>(id, null);
         }
 
-        public static List<Message> List(Dictionary<string, object> filters, string apiKey)
+        public static List<Message> List(Dictionary<string, object> filters, string apiKey, int offset, int count)
         {
-            return BaseList<Message>(filters, apiKey);
+            return BaseList<Message>(filters, apiKey, offset, count);
         }
 
-        public static List<Message> List(Dictionary<string, object> filters)
+        public static List<Message> List(Dictionary<string, object> filters, int offset, int count)
         {
-            return BaseList<Message>(filters, null);
+            return BaseList<Message>(filters, null, offset, count);
         }
 
-        public static List<Message> List(string apiKey)
+        public static List<Message> List(string apiKey, int offset, int count)
         {
-            return BaseList<Message>(null, apiKey);
+            return BaseList<Message>(null, apiKey, offset, count);
         }
 
-        public static List<Message> List()
+        public static List<Message> List(int offset, int count)
         {
-            return BaseList<Message>(null, null);
+            return BaseList<Message>(null, null, offset, count);
         }
 
 
