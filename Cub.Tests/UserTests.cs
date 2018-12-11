@@ -1,11 +1,18 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using NUnit.Framework;
 
 namespace Cub.Tests
 {
     public class UserTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        }
+
         [Test]
         public void UserLoginAndGetByToken()
         {

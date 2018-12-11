@@ -1,11 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
+using System.Net;
 
 namespace Cub.Tests
 {
     public class OrganizationTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        }
+
         [Test]
         public void CreateOrganizationFromJToken()
         {

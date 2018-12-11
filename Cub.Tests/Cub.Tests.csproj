@@ -48,6 +48,8 @@
     <Compile Include="LeadTests.cs" />
     <Compile Include="OrganizationTests.cs" />
     <Compile Include="MailingListTests.cs" />
+    <Compile Include="PlanTests.cs" />
+    <Compile Include="ProductTests.cs" />
     <Compile Include="ServiceSubscriptionTests.cs" />
     <Compile Include="SubscriptionTests.cs" />
     <Compile Include="UserTests.cs" />

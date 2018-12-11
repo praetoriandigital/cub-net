@@ -16,6 +16,8 @@
             return BaseGet<Plan>(id, null);
         }
 
-        public string Name => _string("name");
+        private string ProductUid => _string("product");
+
+        public Product Product => string.IsNullOrEmpty(ProductUid) ? null : Product.Get(ProductUid);
     }
 }

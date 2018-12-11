@@ -21,6 +21,8 @@ namespace Cub
                     return new Lead().FromObject(obj);
                 case "organization":
                     return new Organization().FromObject(obj);
+                case "plan":
+                    return new Plan().FromObject(obj);
                 case "servicesubscription":
                     return new ServiceSubscription().FromObject(obj);
             }

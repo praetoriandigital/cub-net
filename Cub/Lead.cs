@@ -39,13 +39,16 @@ namespace Cub
 
         public Organization Organization => _expandable<Organization>("organization");
 
-        public static List<Lead> List(int offset = 0, int count = 20, DateTime? from = null, DateTime? to = null, params Expression<Func<Lead, object>>[] expandExpressions)
+        public static List<Lead> List(int offset = 0, int count = 20,
+            DateTime? from = null, DateTime? to = null,
+            params Expression<Func<Lead, object>>[] expandExpressions)
         {
             var expands = ParseExpressions(expandExpressions);
             return BaseList<Lead>(PrepareParameters(from, to, expands), null, offset, count);
         }
 
-        private static Dictionary<string, object> PrepareParameters(DateTime? from, DateTime? to, IEnumerable<string> expands)
+        private static Dictionary<string, object> PrepareParameters(DateTime? from, DateTime? to,
+            IEnumerable<string> expands)
         {
             var parameters = new Dictionary<string, object>();
             if (from.HasValue)

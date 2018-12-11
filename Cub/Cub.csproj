@@ -50,6 +50,7 @@
     <Compile Include="CObjectFactory.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Plan.cs" />
     <Compile Include="State.cs" />
     <Compile Include="Country.cs" />

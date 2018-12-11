@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
@@ -8,6 +9,12 @@ namespace Cub.Tests
 {
     public class LeadTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        }
+
         [Test]
         public void CreateLeadFromJToken()
         {
