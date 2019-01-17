@@ -17,7 +17,8 @@ namespace Cub
             Properties["email_confirmed"] = false;
         }
 
-        public override string InstanceUrl => "user";
+        public override string InstanceUrl
+            => string.IsNullOrEmpty(Id) ? "user" : base.InstanceUrl;
 
         public DateTime? BirthDate => _nullableValue<DateTime>("birth_date");
 

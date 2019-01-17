@@ -28,6 +28,11 @@ namespace Cub.Tests
             Assert.AreEqual(user.Email, user2.Email);
             Assert.AreEqual(user.Username, user2.Username);
             Assert.AreEqual(user.Token, user2.Token);
+
+            var user3 = User.GetByUid(user.Id);
+            Assert.AreEqual(user.FirstName, user3.FirstName);
+            Assert.AreEqual(user.Email, user3.Email);
+            Assert.AreEqual(user.Username, user3.Username);
         }
 
         [Test]
