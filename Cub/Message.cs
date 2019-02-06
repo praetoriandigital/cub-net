@@ -50,6 +50,8 @@ namespace Cub
 
         public DateTime? Created => _nullableValue<DateTime>("created");
 
+        public DateTime? Sent => _nullableValue<DateTime>("sent_date");
+
         #region Methods
 
         public static Message Get(string id, string apiKey)
