@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Cub</id>
-    <version>0.3.9</version>
+    <version>0.4.0</version>
     <authors>Denis Stebunov</authors>
     <owners>ivelum</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>cub</tags>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="[4.5,11)" />
+      <dependency id="Newtonsoft.Json" version="[4.5,13)" />
     </dependencies>
   </metadata>
 </package>
