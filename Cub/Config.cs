@@ -12,7 +12,7 @@ namespace Cub
             set => _apiKey = value;
         }
 
-        public const string DefaultApiUrl = "https://cub.policeone.com/v1/";
+        public const string DefaultApiUrl = "https://id.lexipol.com/v1/";
 
         private static string _apiUrl;
 
