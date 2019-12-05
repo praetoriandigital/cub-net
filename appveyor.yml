@@ -6,7 +6,7 @@ environment:
   TOOLSET: v140
   ToolsVersion: 14.0
   INTEGRATION_TESTS_SECRET_KEY:
-    secure: e4ILU/YguOuLHB9nvYJsniSc6b5RCfOwSLjoJR6LgO86QvXow8/wfeWT3O7BwcW+
+    secure: 'e4ILU/YguOuLHB9nvYJsniSc6b5RCfOwSLjoJR6LgO86QvXow8/wfeWT3O7BwcW+'
 before_build:
 - cmd: nuget restore
 build:
