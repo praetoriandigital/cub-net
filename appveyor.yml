@@ -14,7 +14,7 @@ notifications:
 - provider: Slack
   incoming_webhook:
     secure: VTW6QR2dv7aNlFnRdadruW7qw1BxL4PuY6VHOGvBXigrbnS7zUp/GXgWX+4yd3aTpZgYJYk0VhszvRqxsUAlVHN7pFbvEhGxxx9YExqpMyk=
-  channel: id
+  channel: '#id'
   on_build_success: true
   on_build_failure: true
   on_build_status_changed: true
