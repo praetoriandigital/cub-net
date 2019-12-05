@@ -192,7 +192,7 @@ namespace Cub.Tests
         {
             var json = @"{
                 ""object"": ""lead"", 
-                ""id"": ""led_Ko3tYub3lqdZfHd8"",
+                ""id"": ""led_iWJgkoQIyH8TEN5k"",
             }";
             var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
             Assert.NotNull(lead);
@@ -224,7 +224,7 @@ namespace Cub.Tests
         {
             var json = @"{
                 ""object"": ""lead"", 
-                ""id"": ""led_Ko3tYub3lqdZfHd8"",
+                ""id"": ""led_iWJgkoQIyH8TEN5k"",
             }";
             var lead = CObjectFactory.FromJObject(JObject.Parse(json)) as Lead;
             Assert.NotNull(lead);
