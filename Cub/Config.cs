@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace Cub
 {
@@ -8,7 +9,16 @@ namespace Cub
 
         public static string ApiKey
         {
-            get => string.IsNullOrEmpty(_apiKey) ? ConfigurationManager.AppSettings["CubApiKey"] : _apiKey;
+            get {
+                var key = _apiKey;
+                if (string.IsNullOrEmpty(key)) {
+                    key = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_SECRET_KEY");
+                }
+                if (string.IsNullOrEmpty(key)) {
+                    key = ConfigurationManager.AppSettings["CubApiKey"];
+                }
+                return key;
+            }
             set => _apiKey = value;
         }
 
